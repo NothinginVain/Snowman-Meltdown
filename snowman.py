@@ -3,8 +3,46 @@ import random
 # List of secret words
 WORDS = ["python", "git", "github", "snowman", "meltdown"]
 
+# Snowman ASCII Art stages
+STAGES = [
+     # Stage 0: Full snowman
+     """
+      ___  
+     /___\\ 
+     (o o) 
+     ( : ) 
+     ( : ) 
+     """,
+     # Stage 1: Bottom part starts melting
+     """
+      ___  
+     /___\\ 
+     (o o) 
+     ( : ) 
+     """,
+     # Stage 2: Only the head remains
+     """
+      ___  
+     /___\\ 
+     (o o) 
+     """,
+     # Stage 3: Snowman completely melted
+     """
+      ___  
+     /___\\ 
+     """
+ ]
 
-def loop_guess
+def display_game_state(mistakes,secret_word, guessed_letters):
+    print(STAGES[mistakes])
+    display_word = ""
+    for letter in secret_word:
+        if letter in guessed_letters:
+            display_word += letter + " "
+        else:
+            display_word += "_ "
+    print("Word: ", display_word)
+    print()
 
 
 def get_random_word():
@@ -14,6 +52,9 @@ def get_random_word():
 
 def play_game():
     secret_word = get_random_word()
+    mistakes = 0
+    guessed_letters = []
+    display_game_state(mistakes, secret_word, guessed_letters)
     print("Welcome to Snowman Meltdown!")
     print(
         "Secret word selected: " + secret_word)  # for testing, later remove this line
@@ -22,7 +63,7 @@ def play_game():
     # For now, simply prompt the user once:
     guess = input("Guess a letter: ").lower()
     print("You guessed:", guess)
-
+    display_game_state(mistakes, secret_word, guessed_letters)
 
 if __name__ == "__main__":
     play_game()
