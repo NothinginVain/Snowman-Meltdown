@@ -54,16 +54,20 @@ def play_game():
     secret_word = get_random_word()
     mistakes = 0
     guessed_letters = []
-    display_game_state(mistakes, secret_word, guessed_letters)
     print("Welcome to Snowman Meltdown!")
     print(
         "Secret word selected: " + secret_word)  # for testing, later remove this line
+    print(STAGES[0])
 
-    # TODO: Build your game loop here.
-    # For now, simply prompt the user once:
-    guess = input("Guess a letter: ").lower()
-    print("You guessed:", guess)
-    display_game_state(mistakes, secret_word, guessed_letters)
+    while mistakes <= 3:
+        guess = input("Guess a letter: ").lower()
+        if guess not in secret_word:
+            mistakes += 1
+        print("You guessed:", guess)
+        display_game_state(mistakes, secret_word, guessed_letters)
+        if mistakes == 3:
+            print(f"Game Over! The word was: {secret_word}")
+            break
 
 if __name__ == "__main__":
     play_game()
