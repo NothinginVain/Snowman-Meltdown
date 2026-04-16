@@ -8,6 +8,13 @@ STAGES = [
     ( : ) 
     ( : ) 
     """,
+     """
+     ___  
+    /___\\ 
+    (o o) 
+    ( : ) 
+    ::...
+    """,
     # Stage 1: Bottom part starts melting
     """
      ___  
@@ -15,7 +22,14 @@ STAGES = [
     (o o) 
     ( : ) 
     """,
-    # Stage 2: Only the head remains
+    # Stage 2: Only the mid and head remains
+    """
+     ___  
+    /___\\ 
+    (o o) 
+    .:.:.. 
+    """,
+    # Stage 3: Only the head remains
     """
      ___  
     /___\\ 

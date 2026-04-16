@@ -39,11 +39,11 @@ def play_game():
 
         guess_char = input("Guess a letter: ").lower()
         print("You guessed:", guess_char)
-        guess_letters_list.append(guess_char)
 
         if guess_char in guess_letters_list:
             print("You already guessed that letter.")
             continue
+        guess_letters_list.append(guess_char)
 
         if guess_char not in secret_word:
             mistakes += 1
