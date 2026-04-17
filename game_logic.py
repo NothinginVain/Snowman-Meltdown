@@ -22,6 +22,20 @@ def display_game_state(mistakes, secret_word, guessed_letters):
     return display_word
 
 
+def game_validation(guess_char, guess_letters_list):
+    if len(guess_char) == 0:
+        raise ValueError("Invalid input, please type one letter from A to Z")
+
+    if len(guess_char) > 1:
+        raise ValueError("Invalid input, you only can type one letter, try again")
+
+    if not guess_char.isalpha():
+        raise ValueError("Invalid input. Please type a letter fom A to Z")
+
+    if guess_char in guess_letters_list:
+        raise ValueError("You already guessed that letter.")
+
+
 def play_game():
     secret_word = get_random_word()
     print("Welcome to Snowman Meltdown!")
@@ -37,35 +51,13 @@ def play_game():
         if "_" not in status_result:
             print(f"Congratulations, you saved the snowman!")
             print()
-            play_again = input("Do you want to play again ? if yes type 'y' if no type 'n': ").lower().strip()
-            if play_again == "y":
-                secret_word = get_random_word()
-                mistakes = 0
-                guess_letters_list = []
-                continue
-            if play_again == "n":
-                print("By, by ")
-                break
-            else:
-                print("invalid input, try again ")
-                continue
+            break
 
-        guess_char = input("Guess a letter: ").lower().strip()
-
-        if len(guess_char) == 0:
-            print("Invalid input, please type one letter from A to Z")
-            continue
-
-        if len(guess_char) > 1:
-            print("Invalid input, you only can type one letter, try again")
-            continue
-
-        if not guess_char.isalpha():
-            print("Invalid input. Please type a letter fom A to Z")
-            continue
-
-        if guess_char in guess_letters_list:
-            print("You already guessed that letter.")
+        try:
+            guess_char = input("Guess a letter: ").lower().strip()
+            game_validation(guess_char,guess_letters_list)
+        except ValueError as error:
+            print(error)
             continue
 
         print("You guessed:", guess_char)
@@ -79,5 +71,22 @@ def play_game():
             print(f"Game Over! The word was: {secret_word}")
             break
 
-if __name__ == "__main__":
+def main():
     play_game()
+    while True:
+        play_again = input(
+            "Do you want to play again ? if yes type 'y' if no type 'n': ").lower().strip()
+        if play_again == "y":
+            play_game()
+            continue
+
+        if play_again == "n":
+            print("By, by ")
+            break
+        else:
+            print("invalid input,, try again ")
+            continue
+
+
+if __name__ == "__main__":
+    main()
