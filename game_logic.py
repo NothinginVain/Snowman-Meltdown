@@ -24,7 +24,7 @@ def display_game_state(mistakes, secret_word, guessed_letters):
 
 def game_validation(guess_char, guess_letters_list):
     if len(guess_char) == 0:
-        raise ValueError("Invalid input, please type one letter from A to Z")
+        raise ValueError("Invalid input, please type a letter")
 
     if len(guess_char) > 1:
         raise ValueError("Invalid input, you only can type one letter, try again")
@@ -64,6 +64,7 @@ def play_game():
         guess_letters_list.append(guess_char)
 
         if guess_char not in secret_word:
+            print("wrong word!")
             mistakes += 1
 
         if mistakes >= max_mistakes:
