@@ -6,11 +6,12 @@ WORDS = ["python", "git", "github", "snowman", "meltdown", "html", "code"]
 
 
 def get_random_word():
-    """Selects a random word from the list."""
+    """Return a random word from the list."""
     return WORDS[random.randint(0, len(WORDS) - 1)]
 
 
 def display_game_state(mistakes, secret_word, guessed_letters):
+    """Show the snowman stage and return the hidden word display."""
     print(STAGES[mistakes])
     display_word = ""
     for letter in secret_word:
@@ -23,11 +24,17 @@ def display_game_state(mistakes, secret_word, guessed_letters):
 
 
 def game_validation(guess_char, guess_letters_list):
+    """Check if the user's guess is valid.
+
+        Raise ValueError if the input is empty, too long,
+        not a letter, or already guessed.
+        """
     if len(guess_char) == 0:
         raise ValueError("Invalid input, please type a letter")
 
     if len(guess_char) > 1:
-        raise ValueError("Invalid input, you only can type one letter, try again")
+        raise ValueError("Invalid input, you only can type one letter, "
+                         "try again")
 
     if not guess_char.isalpha():
         raise ValueError("Invalid input. Please type a letter fom A to Z")
@@ -37,6 +44,7 @@ def game_validation(guess_char, guess_letters_list):
 
 
 def play_game():
+    """Run the Snowman Meltdown game until the player wins or loses."""
     secret_word = get_random_word()
     print("Welcome to Snowman Meltdown!")
 
@@ -45,10 +53,11 @@ def play_game():
     max_mistakes = len(STAGES) - 1
 
     while True:
-        status_result = display_game_state(mistakes, secret_word, guess_letters_list)
+        status_result = (display_game_state
+                         (mistakes, secret_word, guess_letters_list))
         print(status_result)
 
-        if "_" not in status_result:
+        if all(letter in guess_letters_list for letter in secret_word):
             print(f"Congratulations, you saved the snowman!")
             print()
             break
@@ -64,8 +73,10 @@ def play_game():
         guess_letters_list.append(guess_char)
 
         if guess_char not in secret_word:
-            print("wrong word!")
+            print("Wrong letter!")
             mistakes += 1
+        else:
+            print("You found one secret letter!")
 
         if mistakes >= max_mistakes:
             print(STAGES[mistakes])
