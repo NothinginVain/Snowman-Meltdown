@@ -80,6 +80,6 @@ def play_game():
 
         if mistakes >= max_mistakes:
             print(STAGES[mistakes])
-            print(f"Game Over! The word was: {secret_word}")
+            print(f"Game over! The snowman has completely melted! The word was: {secret_word}")
             break
 
