@@ -4,6 +4,7 @@ from ascii_art import STAGES
 # List of secret words
 WORDS = ["python", "git", "github", "snowman", "meltdown", "html", "code"]
 
+
 def get_random_word():
     """Selects a random word from the list."""
     return WORDS[random.randint(0, len(WORDS) - 1)]
@@ -35,14 +36,39 @@ def play_game():
 
         if "_" not in status_result:
             print(f"Congratulations, you saved the snowman!")
-            break
+            print()
+            play_again = input("Do you want to play again ? if yes type 'y' if no type 'n': ").lower().strip()
+            if play_again == "y":
+                secret_word = get_random_word()
+                mistakes = 0
+                guess_letters_list = []
+                continue
+            if play_again == "n":
+                print("By, by ")
+                break
+            else:
+                print("invalid input, try again ")
+                continue
 
-        guess_char = input("Guess a letter: ").lower()
-        print("You guessed:", guess_char)
+        guess_char = input("Guess a letter: ").lower().strip()
+
+        if len(guess_char) == 0:
+            print("Invalid input, please type one letter from A to Z")
+            continue
+
+        if len(guess_char) > 1:
+            print("Invalid input, you only can type one letter, try again")
+            continue
+
+        if not guess_char.isalpha():
+            print("Invalid input. Please type a letter fom A to Z")
+            continue
 
         if guess_char in guess_letters_list:
             print("You already guessed that letter.")
             continue
+
+        print("You guessed:", guess_char)
         guess_letters_list.append(guess_char)
 
         if guess_char not in secret_word:
