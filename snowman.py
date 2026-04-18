@@ -21,7 +21,7 @@ def main():
 
         if play_again == "n":
             print("By, by. ")
-            break
+            return
         else:
             print("invalid input,, try again ")
             continue
